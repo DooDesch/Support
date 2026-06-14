@@ -206,12 +206,17 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
           id="title"
           placeholder={t("titlePlaceholder")}
           aria-invalid={errors.title ? "true" : undefined}
+          aria-describedby={errors.title ? "title-error" : "title-hint"}
           {...register("title", { required: true, minLength: 3 })}
         />
         {errors.title ? (
-          <p className="text-xs text-destructive">{tValidation("title")}</p>
+          <p id="title-error" role="alert" className="text-xs text-destructive">
+            {tValidation("title")}
+          </p>
         ) : (
-          <p className="text-xs text-muted-foreground">{t("titleHint")}</p>
+          <p id="title-hint" className="text-xs text-muted-foreground">
+            {t("titleHint")}
+          </p>
         )}
       </div>
 
