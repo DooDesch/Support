@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "DooDesch Support - Bug melden",
-    "description": "Melde Bugs und Feedback zu den Projekten von DooDesch. Gib nur an, was du moechtest - jeder Hinweis hilft."
+    "description": "Melde Bugs und Feedback zu den Projekten von DooDesch. Gib nur an, was du möchtest - jeder Hinweis hilft."
   },
   "header": {
     "title": "Bug melden & Feedback geben",
-    "subtitle": "Waehle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - alles Weitere ist optional. Jeder noch so kleine Hinweis hilft weiter."
+    "subtitle": "Wähle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - alles Weitere ist optional. Jeder noch so kleine Hinweis hilft weiter."
   },
   "form": {
     "repoLabel": "Projekt / Repository",
-    "repoPlaceholder": "Projekt auswaehlen ...",
+    "repoPlaceholder": "Projekt auswählen ...",
     "repoSearchPlaceholder": "Projekt suchen ...",
     "repoNone": "Passt zu keinem Projekt",
     "repoNoneHint": "Kein passendes Projekt? Kein Problem - wir ordnen es selbst zu.",
@@ -19,7 +19,7 @@
     "titleLabel": "Titel",
     "titlePlaceholder": "Kurz: Was ist das Problem?",
     "titleHint": "Eine kurze Zusammenfassung in einem Satz.",
-    "addDetailsLabel": "Mehr Details hinzufuegen (optional)",
+    "addDetailsLabel": "Mehr Details hinzufügen (optional)",
     "submit": "Absenden",
     "submitting": "Wird gesendet ...",
     "requiredBadge": "Pflicht",
@@ -29,47 +29,47 @@
       "description": "Beschreibung",
       "steps": "Schritte zur Reproduktion",
       "expected": "Erwartetes Verhalten",
-      "actual": "Tatsaechliches Verhalten",
+      "actual": "Tatsächliches Verhalten",
       "environment": "Umgebung",
       "severity": "Schweregrad",
       "additional": "Weitere Informationen",
-      "contact": "Kontakt fuer Rueckfragen"
+      "contact": "Kontakt für Rückfragen"
     },
     "placeholders": {
       "description": "Was ist passiert? Beschreibe es so genau, wie du magst.",
       "steps": "1. ...\n2. ...\n3. ...",
-      "expected": "Was haettest du erwartet?",
+      "expected": "Was hättest du erwartet?",
       "actual": "Was ist stattdessen passiert?",
-      "environment": "z. B. Browser, Betriebssystem, Geraet, Version",
+      "environment": "z. B. Browser, Betriebssystem, Gerät, Version",
       "additional": "Logs, Links, Screenshots-Beschreibung oder sonstiger Kontext",
       "contact": "E-Mail oder Discord-Handle (optional)"
     },
     "severityOptions": {
-      "placeholder": "Schweregrad waehlen ...",
+      "placeholder": "Schweregrad wählen ...",
       "low": "Niedrig",
       "medium": "Mittel",
       "high": "Hoch",
       "critical": "Kritisch"
     },
-    "contactHint": "Nur falls wir dich bei Rueckfragen erreichen koennen sollen. Wird im Issue vermerkt."
+    "contactHint": "Nur falls wir dich bei Rückfragen erreichen können sollen. Wird im Issue vermerkt."
   },
   "success": {
-    "title": "Danke fuer deine Meldung!",
+    "title": "Danke für deine Meldung!",
     "message": "Dein Hinweis wurde erfolgreich angelegt. Wir schauen ihn uns an.",
     "viewIssue": "Meldung auf GitHub ansehen",
     "another": "Weitere Meldung absenden"
   },
   "errors": {
-    "generic": "Etwas ist schiefgelaufen. Bitte versuche es spaeter erneut.",
+    "generic": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
     "rateLimit": "Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.",
-    "captcha": "Die Spam-Pruefung ist fehlgeschlagen. Bitte lade die Seite neu.",
-    "validation": "Bitte pruefe deine Eingaben."
+    "captcha": "Die Spam-Prüfung ist fehlgeschlagen. Bitte lade die Seite neu.",
+    "validation": "Bitte prüfe deine Eingaben."
   },
   "validation": {
     "title": "Bitte gib einen kurzen Titel ein (mindestens 3 Zeichen)."
   },
   "captcha": {
-    "verifying": "Spam-Schutz wird geprueft ..."
+    "verifying": "Spam-Schutz wird geprüft ..."
   },
   "footer": {
     "discordCta": "Du brauchst direkten Support?",
