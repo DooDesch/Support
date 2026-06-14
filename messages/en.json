@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "DooDesch Support - Report a bug",
+    "description": "Report bugs and feedback for DooDesch's projects. Share only what you want - every hint helps."
+  },
+  "header": {
+    "title": "Report a bug & share feedback",
+    "subtitle": "Pick a project and describe what you noticed. Only a short title is required - everything else is optional. Even the smallest hint helps."
+  },
+  "form": {
+    "repoLabel": "Project / Repository",
+    "repoPlaceholder": "Select a project ...",
+    "repoSearchPlaceholder": "Search projects ...",
+    "repoNone": "Doesn't fit any project",
+    "repoNoneHint": "No matching project? No problem - we'll categorize it ourselves.",
+    "repoEmpty": "No project found.",
+    "repoLoading": "Loading projects ...",
+    "repoError": "Could not load projects.",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Briefly: what's the problem?",
+    "titleHint": "A short one-sentence summary.",
+    "addDetailsLabel": "Add more details (optional)",
+    "submit": "Submit",
+    "submitting": "Sending ...",
+    "requiredBadge": "Required",
+    "optionalBadge": "Optional",
+    "remove": "Remove",
+    "sections": {
+      "description": "Description",
+      "steps": "Steps to reproduce",
+      "expected": "Expected behavior",
+      "actual": "Actual behavior",
+      "environment": "Environment",
+      "severity": "Severity",
+      "additional": "Additional information",
+      "contact": "Contact for follow-up"
+    },
+    "placeholders": {
+      "description": "What happened? Describe it in as much detail as you like.",
+      "steps": "1. ...\n2. ...\n3. ...",
+      "expected": "What did you expect to happen?",
+      "actual": "What happened instead?",
+      "environment": "e.g. browser, operating system, device, version",
+      "additional": "Logs, links, a description of screenshots or any other context",
+      "contact": "Email or Discord handle (optional)"
+    },
+    "severityOptions": {
+      "placeholder": "Select a severity ...",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "contactHint": "Only if you'd like us to reach you for follow-up questions. Added to the issue."
+  },
+  "success": {
+    "title": "Thanks for your report!",
+    "message": "Your hint has been created successfully. We'll take a look.",
+    "viewIssue": "View report on GitHub",
+    "another": "Submit another report"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again later.",
+    "rateLimit": "Too many requests. Please wait a moment and try again.",
+    "captcha": "The spam check failed. Please reload the page.",
+    "validation": "Please check your input."
+  },
+  "validation": {
+    "title": "Please enter a short title (at least 3 characters)."
+  },
+  "captcha": {
+    "verifying": "Verifying spam protection ..."
+  },
+  "footer": {
+    "discordCta": "Need direct support?",
+    "discordLink": "Join our Discord"
+  },
+  "language": {
+    "label": "Language",
+    "de": "Deutsch",
+    "en": "English"
+  }
+}
