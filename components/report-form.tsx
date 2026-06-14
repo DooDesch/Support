@@ -306,11 +306,13 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
         />
       </div>
 
-      <Turnstile
-        ref={turnstileRef}
-        siteKey={siteKey}
-        options={{ appearance: "interaction-only", theme: "auto" }}
-      />
+      <div className="flex justify-center">
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={siteKey}
+          options={{ appearance: "interaction-only", theme: "auto" }}
+        />
+      </div>
 
       <Button type="submit" size="lg" className="w-full" disabled={submitting}>
         {submitting ? (
