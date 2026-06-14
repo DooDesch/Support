@@ -20,7 +20,7 @@ export function LanguageSwitcher() {
             locale={l}
             aria-current={l === locale ? "true" : undefined}
             className={cn(
-              "rounded px-1.5 py-0.5 transition-colors hover:text-foreground",
+              "rounded px-2 py-1 transition-colors hover:text-foreground",
               l === locale
                 ? "font-semibold text-foreground"
                 : "text-muted-foreground",

@@ -79,7 +79,7 @@ export function RepoCombobox({
       <PopoverTrigger
         role="combobox"
         aria-expanded={open}
-        className="flex h-10 w-full items-center justify-between gap-2 rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none transition-colors hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+        className="flex h-10 w-full cursor-pointer items-center justify-between gap-2 rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none transition-colors hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
       >
         <span className={cn("truncate", isPlaceholder && "text-muted-foreground")}>
           {triggerText}
@@ -91,12 +91,18 @@ export function RepoCombobox({
           <CommandInput placeholder={t("repoSearchPlaceholder")} />
           <CommandList>
             {status === "loading" && (
-              <div className="py-6 text-center text-sm text-muted-foreground">
+              <div
+                role="status"
+                className="py-6 text-center text-sm text-muted-foreground"
+              >
                 {t("repoLoading")}
               </div>
             )}
             {status === "error" && (
-              <div className="py-6 text-center text-sm text-muted-foreground">
+              <div
+                role="status"
+                className="py-6 text-center text-sm text-muted-foreground"
+              >
                 {t("repoError")}
               </div>
             )}

@@ -61,7 +61,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
     setValue,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({ defaultValues: DEFAULTS });
+  } = useForm<FormValues>({ defaultValues: DEFAULTS, mode: "onBlur" });
 
   const [repo, setRepo] = React.useState("");
   const [activeFields, setActiveFields] = React.useState<DetailField[]>([]);
@@ -198,13 +198,14 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
       <div className="space-y-1.5">
         <div className="flex items-center gap-2">
           <Label htmlFor="title">{t("titleLabel")}</Label>
-          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary">
             {t("requiredBadge")}
           </span>
         </div>
         <Input
           id="title"
           placeholder={t("titlePlaceholder")}
+          aria-required="true"
           aria-invalid={errors.title ? "true" : undefined}
           aria-describedby={errors.title ? "title-error" : "title-hint"}
           {...register("title", { required: true, minLength: 3 })}
@@ -230,7 +231,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
                 <button
                   type="button"
                   onClick={() => removeField(field)}
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  className="inline-flex items-center gap-1 rounded p-1 text-xs text-muted-foreground transition-colors hover:text-foreground active:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                 >
                   <XIcon className="size-3" />
                   {t("remove")}
@@ -241,7 +242,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
                 <select
                   id="severity"
                   {...register("severity")}
-                  className="flex h-10 w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                  className="flex h-10 w-full cursor-pointer rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
                 >
                   <option value="">{t("severityOptions.placeholder")}</option>
                   {SEVERITIES.map((s) => (
@@ -287,8 +288,10 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
                 type="button"
                 onClick={() => addField(field)}
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-full border border-dashed border-input px-3 py-1 text-sm text-muted-foreground transition-colors",
+                  "inline-flex min-h-9 cursor-pointer items-center gap-1 rounded-full border border-dashed border-input px-3 py-1.5 text-sm text-muted-foreground transition-colors",
                   "hover:border-solid hover:border-ring hover:bg-accent hover:text-foreground",
+                  "active:bg-accent active:text-foreground",
+                  "focus-visible:border-solid focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
                 )}
               >
                 <PlusIcon className="size-3.5" />
@@ -312,14 +315,22 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
       </div>
 
       <div className="flex justify-center">
+        {/* key={locale} forces a clean re-init when the language (route) changes,
+            so the widget doesn't get orphaned by client-side navigation. */}
         <Turnstile
+          key={locale}
           ref={turnstileRef}
           siteKey={siteKey}
           options={{ appearance: "interaction-only", theme: "auto" }}
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full" disabled={submitting}>
+      <Button
+        type="submit"
+        size="lg"
+        className="h-11 w-full"
+        disabled={submitting}
+      >
         {submitting ? (
           <>
             <Loader2Icon className="size-4 animate-spin" />
