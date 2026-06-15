@@ -13,13 +13,25 @@ import {
   CircleCheckIcon,
   ExternalLinkIcon,
 } from "lucide-react";
-import { DETAIL_FIELDS, SEVERITIES, type DetailField } from "@/lib/schema";
+import {
+  DETAIL_FIELDS,
+  SEVERITIES,
+  type DetailField,
+  type Severity,
+} from "@/lib/schema";
 import { buildIssueBody } from "@/lib/issue-body";
 import { RepoCombobox, NO_PROJECT } from "@/components/repo-combobox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 type FormValues = {
@@ -29,7 +41,6 @@ type FormValues = {
   expected: string;
   actual: string;
   environment: string;
-  severity: "" | (typeof SEVERITIES)[number];
   additional: string;
   contact: string;
   website: string; // honeypot
@@ -42,7 +53,6 @@ const DEFAULTS: FormValues = {
   expected: "",
   actual: "",
   environment: "",
-  severity: "",
   additional: "",
   contact: "",
   website: "",
@@ -71,6 +81,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
   } = useForm<FormValues>({ defaultValues: DEFAULTS, mode: "onBlur" });
 
   const [repo, setRepo] = React.useState("");
+  const [severity, setSeverity] = React.useState<Severity | null>(null);
   const [activeFields, setActiveFields] = React.useState<DetailField[]>([]);
   const [submitting, setSubmitting] = React.useState(false);
   const [githubUrl, setGithubUrl] = React.useState<string | null>(null);
@@ -96,6 +107,10 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
 
   function removeField(field: DetailField) {
     setActiveFields((prev) => prev.filter((f) => f !== field));
+    if (field === "severity") {
+      setSeverity(null);
+      return;
+    }
     setValue(field, "");
   }
 
@@ -120,7 +135,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
       expected: values.expected,
       actual: values.actual,
       environment: values.environment,
-      severity: values.severity || undefined,
+      severity: severity ?? undefined,
       additional: values.additional,
       contact: values.contact,
       locale: bodyLocale,
@@ -184,7 +199,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
       const payload = {
         ...values,
         repo: repo === NO_PROJECT ? "" : repo,
-        severity: values.severity || undefined,
+        severity: severity ?? undefined,
         locale,
         elapsedMs: Date.now() - mountedAt.current,
         turnstileToken: token,
@@ -201,6 +216,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
         setResult({ url: data.issueUrl ?? null, number: data.issueNumber ?? null });
         reset(DEFAULTS);
         setRepo("");
+        setSeverity(null);
         setActiveFields([]);
       } else {
         const map: Record<string, string> = {
@@ -311,18 +327,23 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
               </div>
 
               {field === "severity" ? (
-                <select
-                  id="severity"
-                  {...register("severity")}
-                  className="flex h-10 w-full cursor-pointer rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                <Select
+                  value={severity}
+                  onValueChange={(value) => setSeverity(value)}
                 >
-                  <option value="">{t("severityOptions.placeholder")}</option>
-                  {SEVERITIES.map((s) => (
-                    <option key={s} value={s}>
-                      {t(`severityOptions.${s}`)}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger id="severity" className="!h-10 w-full">
+                    <SelectValue
+                      placeholder={t("severityOptions.placeholder")}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SEVERITIES.map((s) => (
+                      <SelectItem key={s} value={s}>
+                        {t(`severityOptions.${s}`)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               ) : field === "contact" ? (
                 <>
                   <Input
