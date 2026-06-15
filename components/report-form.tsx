@@ -14,6 +14,7 @@ import {
   ExternalLinkIcon,
 } from "lucide-react";
 import { DETAIL_FIELDS, SEVERITIES, type DetailField } from "@/lib/schema";
+import { buildIssueBody } from "@/lib/issue-body";
 import { RepoCombobox, NO_PROJECT } from "@/components/repo-combobox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,12 +48,18 @@ const DEFAULTS: FormValues = {
   website: "",
 };
 
+const GITHUB_OWNER = "DooDesch";
+const SUPPORT_REPO = `${GITHUB_OWNER}/Support`;
+// Stay well under GitHub's ~8KB prefilled-URL limit (414 above it).
+const MAX_GITHUB_URL = 6500;
+
 export function ReportForm({ siteKey }: { siteKey: string }) {
   const t = useTranslations("form");
   const tErrors = useTranslations("errors");
   const tSuccess = useTranslations("success");
   const tValidation = useTranslations("validation");
   const locale = useLocale();
+  const bodyLocale = locale === "en" ? "en" : "de";
 
   const {
     register,
@@ -66,6 +73,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
   const [repo, setRepo] = React.useState("");
   const [activeFields, setActiveFields] = React.useState<DetailField[]>([]);
   const [submitting, setSubmitting] = React.useState(false);
+  const [githubUrl, setGithubUrl] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<{
     url: string | null;
     number: number | null;
@@ -96,8 +104,72 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
     mountedAt.current = Date.now();
   }
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function buildGithubUrl(values: FormValues): string {
+    // When a repo is chosen, post into that repo (the reporter is the author);
+    // otherwise fall back to the central Support repo for triage.
+    const targetRepo =
+      repo && repo !== NO_PROJECT ? repo : SUPPORT_REPO;
+
+    // Reuse the same markdown builder as the server, but omit the "reference"
+    // line (a self-reference to the target repo would be redundant).
+    const body = buildIssueBody({
+      title: values.title,
+      repo: "",
+      description: values.description,
+      steps: values.steps,
+      expected: values.expected,
+      actual: values.actual,
+      environment: values.environment,
+      severity: values.severity || undefined,
+      additional: values.additional,
+      contact: values.contact,
+      locale: bodyLocale,
+    });
+
+    const base = `https://github.com/${targetRepo}/issues/new`;
+    const title = values.title.trim();
+    const make = (b: string) =>
+      `${base}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(b)}`;
+
+    let url = make(body);
+    if (url.length > MAX_GITHUB_URL) {
+      const note =
+        bodyLocale === "en"
+          ? "\n\n_(truncated - please add details on GitHub)_"
+          : "\n\n_(gekürzt - bitte bei Bedarf auf GitHub ergänzen)_";
+      let trimmed = body;
+      while (trimmed.length > 0 && make(trimmed + note).length > MAX_GITHUB_URL) {
+        trimmed = trimmed.slice(0, Math.floor(trimmed.length * 0.9));
+      }
+      url = make(trimmed + note);
+    }
+    return url;
+  }
+
+  // Primary path: hand off to GitHub so the reporter posts as themselves.
+  function handleGithubSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const values = getValues();
+    if (!values.title || values.title.trim().length < 3) {
+      void trigger("title");
+      return;
+    }
+    const url = buildGithubUrl(values);
+    setGithubUrl(url);
+    // Open via a synthetic anchor: keeps the user-gesture context (so it isn't
+    // popup-blocked) and applies noopener.
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.target = "_blank";
+    anchor.rel = "noopener noreferrer";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    toast.success(t("githubOpened"));
+  }
+
+  // Fallback path: create the issue server-side (bot-authored, anonymous).
+  async function handleAnonymousSubmit() {
     const isValid = await trigger();
     if (!isValid) return;
     const values = getValues();
@@ -180,7 +252,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleGithubSubmit}
       className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8"
     >
       {/* Repository selector */}
@@ -314,9 +386,9 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
         />
       </div>
 
+      {/* Turnstile is only needed for the anonymous path. key={locale} forces a
+          clean re-init when the language (route) changes. */}
       <div className="flex justify-center">
-        {/* key={locale} forces a clean re-init when the language (route) changes,
-            so the widget doesn't get orphaned by client-side navigation. */}
         <Turnstile
           key={locale}
           ref={turnstileRef}
@@ -325,24 +397,50 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
         />
       </div>
 
-      <Button
-        type="submit"
-        size="lg"
-        className="h-11 w-full"
-        disabled={submitting}
-      >
-        {submitting ? (
-          <>
-            <Loader2Icon className="size-4 animate-spin" />
-            {t("submitting")}
-          </>
-        ) : (
-          <>
-            <SendIcon className="size-4" />
-            {t("submit")}
-          </>
+      {/* Primary: post with the reporter's own GitHub account */}
+      <div className="space-y-2">
+        <Button type="submit" size="lg" className="h-11 w-full">
+          <ExternalLinkIcon className="size-4" />
+          {t("submitGithub")}
+        </Button>
+        <p className="text-center text-xs text-muted-foreground">
+          {t("githubHint")}
+        </p>
+        {githubUrl && (
+          <p className="text-center text-xs">
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
+              {t("githubFallback")}
+            </a>
+          </p>
         )}
-      </Button>
+
+        {/* Fallback: anonymous, server-created issue */}
+        <Button
+          type="button"
+          variant="outline"
+          size="lg"
+          className="mt-2 h-11 w-full"
+          onClick={handleAnonymousSubmit}
+          disabled={submitting}
+        >
+          {submitting ? (
+            <>
+              <Loader2Icon className="size-4 animate-spin" />
+              {t("submitting")}
+            </>
+          ) : (
+            <>
+              <SendIcon className="size-4" />
+              {t("submitAnon")}
+            </>
+          )}
+        </Button>
+      </div>
     </form>
   );
 }

@@ -1,0 +1,33 @@
+name: Add issues to project
+
+# Adds every new issue in this repo to the user Project #3, regardless of who
+# created it. This covers issues that reporters create themselves via the
+# prefilled GitHub "new issue" handoff (which cannot set a Projects v2 board or
+# labels via URL), as well as the bot-created ones (idempotent - no duplicates).
+
+on:
+  issues:
+    types: [opened, reopened, transferred]
+
+permissions:
+  issues: write
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      # Ensure a base "support" label (reporters can't set labels via the URL).
+      # Non-fatal: skip if the label is missing or already set.
+      - name: Ensure support label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh issue edit "${{ github.event.issue.number }}"
+          --repo "${{ github.repository }}"
+          --add-label support || true
+
+      - name: Add issue to Project #3
+        uses: actions/add-to-project@v1
+        with:
+          project-url: https://github.com/users/DooDesch/projects/3
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}

@@ -38,6 +38,27 @@ Without a real `GITHUB_TOKEN`, `/api/repos` returns 500 and the repo selector
 shows an error - everything else still renders. The Turnstile test keys in
 `.env.example` always pass and are for local development only.
 
+## Submitting
+
+Two ways to file a report from the form:
+
+- **Create with GitHub** (primary): builds a prefilled GitHub "new issue" URL and
+  opens it. The reporter submits with their own GitHub account, so they are the
+  author. Targets the selected public repo (or `DooDesch/Support` when no project
+  is chosen). No server/Turnstile involved. Note: labels and Projects v2 cannot be
+  set via the URL, so they are handled by the Actions workflow below.
+- **Submit anonymously** (fallback): posts to `/api/report`; the server creates the
+  issue in `DooDesch/Support` (bot-authored) with labels, adds it to Project #3, and
+  is protected by Turnstile + honeypot + rate limit.
+
+### GitHub Actions secret
+
+`.github/workflows/add-to-project.yml` adds every new issue in this repo to user
+Project #3 (covers self-created "no project" issues). It needs a repository
+**Actions secret** `ADD_TO_PROJECT_PAT` = a classic PAT with `repo` + `project`
+scopes (the same value as `GITHUB_TOKEN` works). Without it, the project-add step
+is skipped; labeling still runs via the default token.
+
 ## Develop
 
 ```bash
