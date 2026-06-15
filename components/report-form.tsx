@@ -101,6 +101,14 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
   const orderedActive = DETAIL_FIELDS.filter((f) => activeFields.includes(f));
   const inactive = DETAIL_FIELDS.filter((f) => !activeFields.includes(f));
 
+  // value -> localized label, so the trigger shows e.g. "Mittel" not "medium".
+  const severityLabels = {
+    low: t("severityOptions.low"),
+    medium: t("severityOptions.medium"),
+    high: t("severityOptions.high"),
+    critical: t("severityOptions.critical"),
+  } as Record<Severity, string>;
+
   function addField(field: DetailField) {
     setActiveFields((prev) => [...prev, field]);
   }
@@ -330,6 +338,7 @@ export function ReportForm({ siteKey }: { siteKey: string }) {
                 <Select
                   value={severity}
                   onValueChange={(value) => setSeverity(value)}
+                  items={severityLabels}
                 >
                   <SelectTrigger id="severity" className="!h-10 w-full">
                     <SelectValue
