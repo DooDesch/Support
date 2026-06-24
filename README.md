@@ -31,6 +31,7 @@ Copy `.env.example` to `.env.local` and fill in:
 | `GITHUB_OWNER` | Repo/Project owner (default `DooDesch`) |
 | `GITHUB_REPO` | Repo where issues are created (default `Support`) |
 | `GITHUB_PROJECT_NUMBER` | User Project number (default `3`) |
+| `GITHUB_ORGS` | Extra orgs whose public repos are listed, comma-separated (default `DooDesch-Mods`) |
 | `TURNSTILE_SITE_KEY` | Cloudflare Turnstile public site key |
 | `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key |
 

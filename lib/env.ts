@@ -10,6 +10,13 @@ export const serverConfig = {
     process.env.GITHUB_PROJECT_NUMBER ?? "3",
     10,
   ),
+  // Additional GitHub organizations whose PUBLIC repos are also listed in the
+  // form (in addition to the owner's own repos). Comma-separated; defaults to
+  // the DooDesch-Mods org.
+  githubOrgs: (process.env.GITHUB_ORGS ?? "DooDesch-Mods")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean),
   // Falls back to Cloudflare's "always passes" test secret so the app works in
   // local development. MUST be overridden with a real secret in production.
   turnstileSecret:
