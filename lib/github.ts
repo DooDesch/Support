@@ -71,7 +71,8 @@ export async function listPublicRepos(): Promise<PublicRepo[]> {
   // De-duplicate by full name (defensive; user/org sets normally don't overlap).
   const byName = new Map<string, RawRepo>();
   for (const r of raw) {
-    if (r.private || r.fork || r.archived) continue;
+    // Skip private/fork/archived and the special ".github" org meta-repo.
+    if (r.private || r.fork || r.archived || r.name === ".github") continue;
     if (!byName.has(r.full_name)) byName.set(r.full_name, r);
   }
 
