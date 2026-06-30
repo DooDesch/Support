@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { MessageCircleIcon } from "lucide-react";
 
-const DISCORD_URL = "https://discord.doodesch.de";
+const DISCORD_URL = "https://mods.doodesch.de";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
