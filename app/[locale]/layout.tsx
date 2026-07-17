@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -54,6 +55,12 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
+        {/* cookieless analytics (self-hosted Umami) */}
+        <Script
+          src="https://stats.doodesch.de/script.js"
+          data-website-id="4a41ea05-d24c-4758-8dcf-5dbebb5124b8"
+          strategy="afterInteractive"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
