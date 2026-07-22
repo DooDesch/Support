@@ -1,11 +1,7 @@
 {
   "meta": {
-    "title": "DooDesch Support - Report a bug",
-    "description": "Report bugs and feedback for DooDesch's projects. Share only what you want - every hint helps."
-  },
-  "header": {
-    "title": "Report a bug & share feedback",
-    "subtitle": "Pick a project and describe what you noticed. Only a short title is required - everything else is optional. Even the smallest hint helps."
+    "title": "DooDesch Support - Help with mods",
+    "description": "Support for DooDesch mods: ask on Discord or create a ticket. Only a short title is required, attach your log file right away."
   },
   "hero": {
     "title": "Help with <accent>DooDesch</accent> mods",
@@ -19,7 +15,7 @@
     "ticket": {
       "title": "Create a ticket",
       "badge": "No account needed",
-      "description": "Only a short title is required. Your report lands directly on my desk as a GitHub issue.",
+      "description": "A short title is enough. Your report lands directly on my desk as a GitHub issue.",
       "cta": "Go to the form"
     }
   },
@@ -29,7 +25,7 @@
   },
   "product": {
     "metaTitle": "{name} support - DooDesch",
-    "metaDescription": "Help with {name}: ask on Discord or create a ticket - only a short title is required.",
+    "metaDescription": "Help with {name}: ask on Discord or create a ticket. A short title is enough.",
     "heading": "{name} Support",
     "repoLink": "View the project on GitHub",
     "knownIssues": {
@@ -51,7 +47,7 @@
     "repoPlaceholder": "Select a project ...",
     "repoSearchPlaceholder": "Search projects ...",
     "repoNone": "Doesn't fit any project",
-    "repoNoneHint": "No matching project? No problem - we'll categorize it ourselves.",
+    "repoNoneHint": "No matching project? No problem - we'll sort it out ourselves.",
     "repoEmpty": "No project found.",
     "repoLoading": "Loading projects ...",
     "repoError": "Could not load projects.",
@@ -59,7 +55,6 @@
     "titlePlaceholder": "Briefly: what's the problem?",
     "titleHint": "A short one-sentence summary.",
     "addDetailsLabel": "Add more details (optional)",
-    "submit": "Submit",
     "submitting": "Sending ...",
     "submitGithub": "Create with GitHub",
     "submitAnon": "Send report - no account needed",
@@ -68,7 +63,6 @@
     "githubOpened": "GitHub opened in a new tab - click \"Submit new issue\" there.",
     "githubFallback": "No tab opened? Open on GitHub.",
     "requiredBadge": "Required",
-    "optionalBadge": "Optional",
     "remove": "Remove",
     "sections": {
       "description": "Description",
@@ -100,8 +94,8 @@
     "log": {
       "label": "Attach a log file (optional)",
       "drop": "Drop your log file here or click",
-      "browse": ".log or .txt, up to 5 MB - read in your browser only",
-      "attached": "Embedded into the ticket as text ({size})",
+      "browse": ".log or .txt, up to 5 MB. Read in your browser only.",
+      "attached": "Goes into the ticket as text ({size})",
       "truncatedNote": "Shortened to the relevant parts (errors, mod list).",
       "redactedNote": "Usernames in paths were replaced.",
       "remove": "Remove",
@@ -109,7 +103,7 @@
         "tooLarge": "The file is over 5 MB. Shorten it or attach it directly on GitHub or Discord.",
         "invalidType": "Only .log or .txt files. Screenshots can go directly on GitHub or Discord.",
         "binary": "That doesn't look like a text file. Please pick the log file (e.g. MelonLoader/Latest.log).",
-        "readFailed": "The file could not be read. Please try again."
+        "readFailed": "Couldn't read the file. Try again."
       },
       "githubCopied": "Log copied - paste it into the GitHub issue with Ctrl+V.",
       "githubCopyTitle": "Copy the log manually",
@@ -118,7 +112,7 @@
   },
   "success": {
     "title": "Thanks for your report!",
-    "message": "Your hint has been created successfully. We'll take a look.",
+    "message": "Your report is in. We'll take a look.",
     "viewIssue": "View report on GitHub",
     "another": "Submit another report"
   },
@@ -130,9 +124,6 @@
   },
   "validation": {
     "title": "Please enter a short title (at least 3 characters)."
-  },
-  "captcha": {
-    "verifying": "Verifying spam protection ..."
   },
   "footer": {
     "discordCta": "Need direct support?",

@@ -1,11 +1,7 @@
 {
   "meta": {
-    "title": "DooDesch Support - Bug melden",
-    "description": "Melde Bugs und Feedback zu den Projekten von DooDesch. Gib nur an, was du möchtest - jeder Hinweis hilft."
-  },
-  "header": {
-    "title": "Bug melden & Feedback geben",
-    "subtitle": "Wähle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - alles Weitere ist optional. Jeder noch so kleine Hinweis hilft weiter."
+    "title": "DooDesch Support - Hilfe zu Mods",
+    "description": "Support für DooDesch-Mods: Frag im Discord oder erstelle ein Ticket. Nur ein kurzer Titel ist Pflicht, Logdatei einfach anhängen."
   },
   "hero": {
     "title": "Hilfe zu <accent>DooDesch</accent>-Mods",
@@ -19,7 +15,7 @@
     "ticket": {
       "title": "Ticket erstellen",
       "badge": "Ohne Konto möglich",
-      "description": "Nur ein kurzer Titel ist Pflicht. Deine Meldung landet direkt als GitHub-Issue bei mir.",
+      "description": "Ein kurzer Titel reicht schon. Deine Meldung landet direkt als GitHub-Issue bei mir.",
       "cta": "Zum Formular"
     }
   },
@@ -29,7 +25,7 @@
   },
   "product": {
     "metaTitle": "{name} Support - DooDesch",
-    "metaDescription": "Hilfe zu {name}: Frag im Discord oder erstelle ein Ticket - nur ein kurzer Titel ist Pflicht.",
+    "metaDescription": "Hilfe zu {name}: Frag im Discord oder erstelle ein Ticket. Ein kurzer Titel reicht schon.",
     "heading": "{name} Support",
     "repoLink": "Projekt auf GitHub ansehen",
     "knownIssues": {
@@ -59,7 +55,6 @@
     "titlePlaceholder": "Kurz: Was ist das Problem?",
     "titleHint": "Eine kurze Zusammenfassung in einem Satz.",
     "addDetailsLabel": "Mehr Details hinzufügen (optional)",
-    "submit": "Absenden",
     "submitting": "Wird gesendet ...",
     "submitGithub": "Mit GitHub erstellen",
     "submitAnon": "Meldung absenden - ohne Konto",
@@ -68,7 +63,6 @@
     "githubOpened": "GitHub wurde in einem neuen Tab geöffnet - dort auf „Submit new issue“ klicken.",
     "githubFallback": "Hat sich kein Tab geöffnet? Auf GitHub öffnen.",
     "requiredBadge": "Pflicht",
-    "optionalBadge": "Optional",
     "remove": "Entfernen",
     "sections": {
       "description": "Beschreibung",
@@ -100,8 +94,8 @@
     "log": {
       "label": "Logdatei anhängen (optional)",
       "drop": "Logdatei hierher ziehen oder klicken",
-      "browse": ".log oder .txt, bis 5 MB - wird nur in deinem Browser gelesen",
-      "attached": "Wird als Text ins Ticket eingebettet ({size})",
+      "browse": ".log oder .txt, bis 5 MB. Wird nur in deinem Browser gelesen.",
+      "attached": "Landet als Text im Ticket ({size})",
       "truncatedNote": "Gekürzt auf die wichtigen Teile (Fehler, Mod-Liste).",
       "redactedNote": "Benutzernamen in Pfaden wurden ersetzt.",
       "remove": "Entfernen",
@@ -109,7 +103,7 @@
         "tooLarge": "Die Datei ist größer als 5 MB. Kürze sie oder häng sie direkt auf GitHub oder im Discord an.",
         "invalidType": "Nur .log- oder .txt-Dateien. Screenshots kannst du direkt auf GitHub oder im Discord anhängen.",
         "binary": "Das sieht nicht nach einer Textdatei aus. Bitte wähle die Logdatei (z. B. MelonLoader/Latest.log).",
-        "readFailed": "Die Datei konnte nicht gelesen werden. Bitte versuche es noch einmal."
+        "readFailed": "Die Datei ließ sich nicht lesen. Versuch es noch einmal."
       },
       "githubCopied": "Log kopiert - füge ihn im GitHub-Issue mit Strg+V ein.",
       "githubCopyTitle": "Log manuell kopieren",
@@ -118,7 +112,7 @@
   },
   "success": {
     "title": "Danke für deine Meldung!",
-    "message": "Dein Hinweis wurde erfolgreich angelegt. Wir schauen ihn uns an.",
+    "message": "Deine Meldung ist drin. Wir schauen sie uns an.",
     "viewIssue": "Meldung auf GitHub ansehen",
     "another": "Weitere Meldung absenden"
   },
@@ -130,9 +124,6 @@
   },
   "validation": {
     "title": "Bitte gib einen kurzen Titel ein (mindestens 3 Zeichen)."
-  },
-  "captcha": {
-    "verifying": "Spam-Schutz wird geprüft ..."
   },
   "footer": {
     "discordCta": "Du brauchst direkten Support?",

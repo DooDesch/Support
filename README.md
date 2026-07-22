@@ -1,5 +1,7 @@
 # Support (support.doodesch.de)
 
+> 🛟 **Need help or found a bug?** Get support at [support.doodesch.de](https://support.doodesch.de).
+
 Public, multilingual (DE/EN) support portal for DooDesch's projects. Visitors
 submit a bug report or feedback; each submission becomes a GitHub issue in this
 repository (`DooDesch/Support`) and is automatically added to the user
