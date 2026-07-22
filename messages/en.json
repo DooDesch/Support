@@ -96,7 +96,25 @@
       "high": "High",
       "critical": "Critical"
     },
-    "contactHint": "Only if you'd like us to reach you for follow-up questions. Added to the issue."
+    "contactHint": "Only if you'd like us to reach you for follow-up questions. Added to the issue.",
+    "log": {
+      "label": "Attach a log file (optional)",
+      "drop": "Drop your log file here or click",
+      "browse": ".log or .txt, up to 5 MB - read in your browser only",
+      "attached": "Embedded into the ticket as text ({size})",
+      "truncatedNote": "Shortened to the relevant parts (errors, mod list).",
+      "redactedNote": "Usernames in paths were replaced.",
+      "remove": "Remove",
+      "errors": {
+        "tooLarge": "The file is over 5 MB. Shorten it or attach it directly on GitHub or Discord.",
+        "invalidType": "Only .log or .txt files. Screenshots can go directly on GitHub or Discord.",
+        "binary": "That doesn't look like a text file. Please pick the log file (e.g. MelonLoader/Latest.log).",
+        "readFailed": "The file could not be read. Please try again."
+      },
+      "githubCopied": "Log copied - paste it into the GitHub issue with Ctrl+V.",
+      "githubCopyTitle": "Copy the log manually",
+      "githubCopyHint": "Automatic copying didn't work. Select the text below, copy it and paste it into the GitHub issue. You can also drag and drop the file onto GitHub instead."
+    }
   },
   "success": {
     "title": "Thanks for your report!",

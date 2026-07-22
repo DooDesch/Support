@@ -8,8 +8,17 @@ import { DETAIL_FIELDS, type DetailField, type Severity } from "@/lib/schema";
 import { RepoCombobox, NO_PROJECT } from "@/components/repo-combobox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { DetailSection } from "./detail-section";
 import { DetailChips } from "./detail-chips";
+import { LogAttach, type AttachedLog } from "./log-attach";
 import { SubmitPanel } from "./submit-panel";
 import { SuccessPanel } from "./success-panel";
 import { useReportSubmit } from "./use-report-submit";
@@ -38,18 +47,21 @@ export function ReportForm({
   const [repo, setRepo] = React.useState(initialRepo ?? "");
   const [severity, setSeverity] = React.useState<Severity | null>(null);
   const [activeFields, setActiveFields] = React.useState<DetailField[]>([]);
+  const [log, setLog] = React.useState<AttachedLog | null>(null);
   const turnstileRef = React.useRef<TurnstileInstance | null>(null);
 
   const submit = useReportSubmit({
     form,
     repo,
     severity,
+    log,
     turnstileRef,
     onAfterSuccess: () => {
       reset(DEFAULTS);
       setRepo(initialRepo ?? "");
       setSeverity(null);
       setActiveFields([]);
+      setLog(null);
     },
   });
 
@@ -133,6 +145,7 @@ export function ReportForm({
           />
         ))}
         <DetailChips fields={inactive} onAdd={addField} />
+        <LogAttach value={log} onChange={setLog} />
       </section>
 
       {/* Submit */}
@@ -157,6 +170,29 @@ export function ReportForm({
           onGithubClick={submit.handleGithubSubmit}
         />
       </section>
+
+      {/* Fallback when the clipboard is unavailable: manual copy of the log
+          markdown for the GitHub issue. */}
+      <Dialog
+        open={submit.manualCopyText !== null}
+        onOpenChange={(open) => {
+          if (!open) submit.clearManualCopy();
+        }}
+      >
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{t("log.githubCopyTitle")}</DialogTitle>
+            <DialogDescription>{t("log.githubCopyHint")}</DialogDescription>
+          </DialogHeader>
+          <Textarea
+            readOnly
+            rows={8}
+            value={submit.manualCopyText ?? ""}
+            onFocus={(event) => event.currentTarget.select()}
+            className="font-mono text-xs"
+          />
+        </DialogContent>
+      </Dialog>
     </form>
   );
 }

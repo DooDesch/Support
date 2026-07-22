@@ -31,6 +31,12 @@ export const reportSchema = z.object({
   severity: z.enum(SEVERITIES).optional(),
   additional: z.string().trim().max(5000).default(""),
   contact: z.string().trim().max(200).default(""),
+  // Log content prepared client-side (redacted + shortened). The server only
+  // relays it into the issue body; nothing is stored. 45k gives headroom over
+  // the client's 40k budget.
+  logFileName: z.string().trim().max(160).default(""),
+  log: z.string().max(45_000).default(""),
+  logTruncated: z.coerce.boolean().default(false),
   locale: z.enum(["de", "en"]).default("de"),
 });
 

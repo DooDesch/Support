@@ -5,7 +5,9 @@ import type { TurnstileInstance } from "@marsidev/react-turnstile";
 import { toast } from "sonner";
 import type { Severity } from "@/lib/schema";
 import { buildIssueBody } from "@/lib/issue-body";
+import { buildLogMarkdown } from "@/lib/log-extract";
 import { NO_PROJECT } from "@/components/repo-combobox";
+import type { AttachedLog } from "./log-attach";
 import {
   MAX_GITHUB_URL,
   SUPPORT_REPO,
@@ -19,12 +21,14 @@ export function useReportSubmit({
   form,
   repo,
   severity,
+  log,
   turnstileRef,
   onAfterSuccess,
 }: {
   form: UseFormReturn<FormValues>;
   repo: string;
   severity: Severity | null;
+  log: AttachedLog | null;
   turnstileRef: React.RefObject<TurnstileInstance | null>;
   onAfterSuccess: () => void;
 }) {
@@ -36,6 +40,10 @@ export function useReportSubmit({
   const [submitting, setSubmitting] = React.useState(false);
   const [githubUrl, setGithubUrl] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<SubmitResult | null>(null);
+  // Log markdown for manual copy when the clipboard is unavailable.
+  const [manualCopyText, setManualCopyText] = React.useState<string | null>(
+    null,
+  );
 
   const mountedAt = React.useRef<number>(0);
 
@@ -62,6 +70,11 @@ export function useReportSubmit({
       severity: severity ?? undefined,
       additional: values.additional,
       contact: values.contact,
+      // The prefilled URL is capped at ~6.5k chars; the log never fits and is
+      // handed over via clipboard instead.
+      log: "",
+      logFileName: "",
+      logTruncated: false,
       locale: bodyLocale,
     });
 
@@ -94,6 +107,24 @@ export function useReportSubmit({
     }
     const url = buildGithubUrl(values);
     setGithubUrl(url);
+
+    // An attached log can't ride along in the capped URL: copy its markdown so
+    // the reporter pastes it into the GitHub issue. Fire the write while the
+    // user gesture is still valid, before the new tab steals focus; on failure
+    // (insecure context, denied permission) fall back to a manual-copy dialog.
+    if (log) {
+      const markdown = buildLogMarkdown({
+        fileName: log.fileName,
+        content: log.content,
+        truncated: log.truncated,
+        locale: bodyLocale,
+      });
+      navigator.clipboard
+        ?.writeText(markdown)
+        .then(() => toast.success(t("log.githubCopied")))
+        .catch(() => setManualCopyText(markdown));
+    }
+
     // Open via a synthetic anchor: keeps the user-gesture context (so it isn't
     // popup-blocked) and applies noopener.
     const anchor = document.createElement("a");
@@ -123,6 +154,9 @@ export function useReportSubmit({
         ...values,
         repo: repo === NO_PROJECT ? "" : repo,
         severity: severity ?? undefined,
+        log: log?.content ?? "",
+        logFileName: log?.fileName ?? "",
+        logTruncated: log?.truncated ?? false,
         locale,
         elapsedMs: Date.now() - mountedAt.current,
         turnstileToken: token,
@@ -167,6 +201,8 @@ export function useReportSubmit({
     submitting,
     githubUrl,
     result,
+    manualCopyText,
+    clearManualCopy: () => setManualCopyText(null),
     handleGithubSubmit,
     handleAnonymousSubmit,
     resetResult,

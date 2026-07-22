@@ -96,7 +96,25 @@
       "high": "Hoch",
       "critical": "Kritisch"
     },
-    "contactHint": "Nur falls wir dich bei Rückfragen erreichen können sollen. Wird im Issue vermerkt."
+    "contactHint": "Nur falls wir dich bei Rückfragen erreichen können sollen. Wird im Issue vermerkt.",
+    "log": {
+      "label": "Logdatei anhängen (optional)",
+      "drop": "Logdatei hierher ziehen oder klicken",
+      "browse": ".log oder .txt, bis 5 MB - wird nur in deinem Browser gelesen",
+      "attached": "Wird als Text ins Ticket eingebettet ({size})",
+      "truncatedNote": "Gekürzt auf die wichtigen Teile (Fehler, Mod-Liste).",
+      "redactedNote": "Benutzernamen in Pfaden wurden ersetzt.",
+      "remove": "Entfernen",
+      "errors": {
+        "tooLarge": "Die Datei ist größer als 5 MB. Kürze sie oder häng sie direkt auf GitHub oder im Discord an.",
+        "invalidType": "Nur .log- oder .txt-Dateien. Screenshots kannst du direkt auf GitHub oder im Discord anhängen.",
+        "binary": "Das sieht nicht nach einer Textdatei aus. Bitte wähle die Logdatei (z. B. MelonLoader/Latest.log).",
+        "readFailed": "Die Datei konnte nicht gelesen werden. Bitte versuche es noch einmal."
+      },
+      "githubCopied": "Log kopiert - füge ihn im GitHub-Issue mit Strg+V ein.",
+      "githubCopyTitle": "Log manuell kopieren",
+      "githubCopyHint": "Automatisches Kopieren hat nicht geklappt. Markiere den Text unten, kopiere ihn und füge ihn im GitHub-Issue ein. Alternativ kannst du die Datei auf GitHub auch per Drag & Drop anhängen."
+    }
   },
   "success": {
     "title": "Danke für deine Meldung!",

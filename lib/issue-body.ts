@@ -1,4 +1,5 @@
 import type { ReportInput } from "./schema";
+import { buildBoundedLogMarkdown, MAX_ISSUE_BODY } from "./log-extract";
 
 // Localized section headings used inside the GitHub issue body.
 const HEADINGS = {
@@ -12,6 +13,7 @@ const HEADINGS = {
     severity: "Schweregrad",
     additional: "Weitere Informationen",
     contact: "Kontakt",
+    log: "Logdatei",
     submitted: "Eingereicht über",
   },
   en: {
@@ -24,6 +26,7 @@ const HEADINGS = {
     severity: "Severity",
     additional: "Additional information",
     contact: "Contact",
+    log: "Log file",
     submitted: "Submitted via",
   },
 } as const;
@@ -50,7 +53,24 @@ export function buildIssueBody(input: ReportInput): string {
   if (input.additional) parts.push(section(t.additional, input.additional));
   if (input.contact) parts.push(section(t.contact, input.contact));
 
-  parts.push(`\n---\n_${t.submitted} support.doodesch.de_`);
+  const footer = `\n---\n_${t.submitted} support.doodesch.de_`;
+
+  // Log section last, shrunk to whatever room the 65536-char issue-body cap
+  // leaves after all other sections.
+  if (input.log && input.logFileName) {
+    const baseLength = [...parts, footer].join("\n").length;
+    const available = MAX_ISSUE_BODY - baseLength - t.log.length - 16;
+    const markdown = buildBoundedLogMarkdown({
+      fileName: input.logFileName,
+      content: input.log,
+      truncated: input.logTruncated,
+      locale: input.locale,
+      availableChars: available,
+    });
+    if (markdown) parts.push(section(t.log, markdown));
+  }
+
+  parts.push(footer);
 
   return parts.join("\n");
 }
