@@ -27,6 +27,25 @@
     "formTitle": "Ticket erstellen",
     "formSubtitle": "Wähle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - jeder Hinweis hilft."
   },
+  "product": {
+    "metaTitle": "{name} Support - DooDesch",
+    "metaDescription": "Hilfe zu {name}: Frag im Discord oder erstelle ein Ticket - nur ein kurzer Titel ist Pflicht.",
+    "heading": "{name} Support",
+    "repoLink": "Projekt auf GitHub ansehen",
+    "knownIssues": {
+      "title": "Schon gemeldet?",
+      "subtitle": "Diese Meldungen sind gerade offen - vielleicht ist deine schon dabei.",
+      "empty": "Aktuell sind keine Meldungen offen.",
+      "viewAll": "Alle auf GitHub ansehen",
+      "sourceSupport": "Support",
+      "sourceRepo": "GitHub"
+    }
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Diese Seite gibt es nicht - oder das Projekt heißt anders. Auf der Startseite findest du alle Projekte im Formular.",
+    "backHome": "Zur Startseite"
+  },
   "form": {
     "repoLabel": "Projekt / Repository",
     "repoPlaceholder": "Projekt auswählen ...",

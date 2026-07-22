@@ -99,6 +99,73 @@ export async function listPublicRepos(): Promise<PublicRepo[]> {
     }));
 }
 
+export interface RepoIssue {
+  title: string;
+  number: number;
+  url: string;
+  createdAt: string;
+  // Where the issue lives: the product repo itself, or the central Support
+  // repo (anonymous submissions land there with a repo:{name} label).
+  source: "repo" | "support";
+}
+
+type RawIssue = {
+  title: string;
+  number: number;
+  html_url: string;
+  created_at: string;
+  pull_request?: unknown;
+};
+
+function toRepoIssues(raw: RawIssue[], source: RepoIssue["source"]): RepoIssue[] {
+  return raw
+    .filter((issue) => !issue.pull_request)
+    .map((issue) => ({
+      title: issue.title,
+      number: issue.number,
+      url: issue.html_url,
+      createdAt: issue.created_at,
+      source,
+    }));
+}
+
+// Newest open issues of a product repo (the GitHub-handoff path files there).
+export async function listOpenIssues(
+  owner: string,
+  repo: string,
+  limit: number,
+): Promise<RepoIssue[]> {
+  const octokit = getOctokit();
+  const { data } = await octokit.rest.issues.listForRepo({
+    owner,
+    repo,
+    state: "open",
+    per_page: limit,
+    sort: "created",
+    direction: "desc",
+  });
+  return toRepoIssues(data, "repo");
+}
+
+// Newest open issues in the central Support repo carrying the given label
+// (anonymous submissions are labeled repo:{shortName} by buildIssueLabels).
+export async function listSupportIssuesByLabel(
+  label: string,
+  limit: number,
+): Promise<RepoIssue[]> {
+  const octokit = getOctokit();
+  const { data } = await octokit.rest.issues.listForRepo({
+    owner: serverConfig.githubOwner,
+    repo: serverConfig.githubRepo,
+    state: "open",
+    labels: label,
+    per_page: limit,
+    sort: "created",
+    direction: "desc",
+  });
+  return toRepoIssues(data, "support");
+}
+
 export interface CreatedIssue {
   url: string;
   number: number;

@@ -22,6 +22,9 @@ export const serverConfig = {
   turnstileSecret:
     process.env.TURNSTILE_SECRET_KEY ??
     "1x0000000000000000000000000000000AA",
+  // Public Turnstile site key, passed to the client as a prop. Falls back to
+  // the matching "always passes" test key.
+  turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || "1x00000000000000000000AA",
 } as const;
 
 export function assertGithubConfigured(): void {

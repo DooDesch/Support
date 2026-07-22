@@ -1,15 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { serverConfig } from "@/lib/env";
 import { Hero } from "@/components/hero";
 import { ReportForm } from "@/components/report-form/report-form";
 
 // Rendered per request so the Turnstile site key is read from runtime env
 // (configured in Dokploy) rather than frozen at build time.
 export const dynamic = "force-dynamic";
-
-// Cloudflare Turnstile site key (public). Falls back to the "always passes"
-// test key so local development works without configuration.
-const TURNSTILE_SITE_KEY =
-  process.env.TURNSTILE_SITE_KEY || "1x00000000000000000000AA";
 
 export default async function Page({
   params,
@@ -35,7 +31,7 @@ export default async function Page({
             {t("formSubtitle")}
           </p>
         </div>
-        <ReportForm siteKey={TURNSTILE_SITE_KEY} />
+        <ReportForm siteKey={serverConfig.turnstileSiteKey} />
       </section>
     </div>
   );

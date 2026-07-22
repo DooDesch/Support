@@ -27,6 +27,25 @@
     "formTitle": "Create a ticket",
     "formSubtitle": "Pick a project and describe what you noticed. Only a short title is required - every hint helps."
   },
+  "product": {
+    "metaTitle": "{name} support - DooDesch",
+    "metaDescription": "Help with {name}: ask on Discord or create a ticket - only a short title is required.",
+    "heading": "{name} Support",
+    "repoLink": "View the project on GitHub",
+    "knownIssues": {
+      "title": "Already reported?",
+      "subtitle": "These reports are currently open - yours might be among them.",
+      "empty": "No reports are open right now.",
+      "viewAll": "View all on GitHub",
+      "sourceSupport": "Support",
+      "sourceRepo": "GitHub"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "This page doesn't exist - or the project goes by a different name. The form on the home page lists every project.",
+    "backHome": "Back to the home page"
+  },
   "form": {
     "repoLabel": "Project / Repository",
     "repoPlaceholder": "Select a project ...",
