@@ -84,5 +84,8 @@
     "label": "Sprache",
     "de": "Deutsch",
     "en": "English"
+  },
+  "theme": {
+    "toggle": "Helles oder dunkles Design umschalten"
   }
 }

@@ -7,7 +7,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -63,13 +65,26 @@ export default async function LocaleLayout({
         />
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange
         >
           <NextIntlClientProvider>
-            <header className="flex items-center justify-end px-4 py-4">
-              <LanguageSwitcher />
+            <header className="border-b border-border/60">
+              <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3">
+                <Link
+                  href="/"
+                  className="text-sm font-semibold tracking-tight"
+                >
+                  DooDesch{" "}
+                  <span className="font-normal text-muted-foreground">
+                    Support
+                  </span>
+                </Link>
+                <div className="flex items-center gap-1">
+                  <ThemeToggle />
+                  <LanguageSwitcher />
+                </div>
+              </div>
             </header>
             <main className="flex-1">{children}</main>
             <SiteFooter />

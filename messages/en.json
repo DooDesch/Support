@@ -84,5 +84,8 @@
     "label": "Language",
     "de": "Deutsch",
     "en": "English"
+  },
+  "theme": {
+    "toggle": "Switch between light and dark theme"
   }
 }
