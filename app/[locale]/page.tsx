@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ReportForm } from "@/components/report-form";
+import { ReportForm } from "@/components/report-form/report-form";
 
 // Rendered per request so the Turnstile site key is read from runtime env
 // (configured in Dokploy) rather than frozen at build time.
