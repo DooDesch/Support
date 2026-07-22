@@ -8,7 +8,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border/60 py-6">
-      <div className="mx-auto flex max-w-2xl flex-col items-center gap-1 px-4 text-center text-sm text-muted-foreground">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-1 px-4 text-center text-sm text-muted-foreground">
         <p className="flex items-center gap-1.5">
           <MessageCircleIcon className="size-3.5" aria-hidden="true" />
           <span>{t("discordCta")}</span>

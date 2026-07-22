@@ -7,6 +7,26 @@
     "title": "Report a bug & share feedback",
     "subtitle": "Pick a project and describe what you noticed. Only a short title is required - everything else is optional. Even the smallest hint helps."
   },
+  "hero": {
+    "title": "Help with <accent>DooDesch</accent> mods",
+    "subtitle": "Found a bug, got a question or an idea? Discord is the fastest way - or create a ticket right here.",
+    "discord": {
+      "title": "Join the Discord",
+      "tag": "Fastest help - real people",
+      "description": "Ask in the support channel. The community and I read along and usually answer the same day.",
+      "cta": "Open Discord"
+    },
+    "ticket": {
+      "title": "Create a ticket",
+      "badge": "No account needed",
+      "description": "Only a short title is required. Your report lands directly on my desk as a GitHub issue.",
+      "cta": "Go to the form"
+    }
+  },
+  "home": {
+    "formTitle": "Create a ticket",
+    "formSubtitle": "Pick a project and describe what you noticed. Only a short title is required - every hint helps."
+  },
   "form": {
     "repoLabel": "Project / Repository",
     "repoPlaceholder": "Select a project ...",

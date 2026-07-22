@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Hero } from "@/components/hero";
 import { ReportForm } from "@/components/report-form/report-form";
 
 // Rendered per request so the Turnstile site key is read from runtime env
@@ -17,17 +18,25 @@ export default async function Page({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("header");
+  const t = await getTranslations("home");
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-10 sm:py-14">
-      <div className="mb-8 space-y-3 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-          {t("title")}
-        </h1>
-        <p className="text-pretty text-muted-foreground">{t("subtitle")}</p>
-      </div>
-      <ReportForm siteKey={TURNSTILE_SITE_KEY} />
+    <div className="mx-auto w-full max-w-5xl px-4">
+      <Hero />
+      <section
+        id="report"
+        className="mx-auto w-full max-w-2xl scroll-mt-8 border-t border-border py-10 sm:py-14"
+      >
+        <div className="mb-8 space-y-2">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            {t("formTitle")}
+          </h2>
+          <p className="text-pretty text-muted-foreground">
+            {t("formSubtitle")}
+          </p>
+        </div>
+        <ReportForm siteKey={TURNSTILE_SITE_KEY} />
+      </section>
     </div>
   );
 }

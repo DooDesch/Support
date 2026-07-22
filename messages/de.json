@@ -7,6 +7,26 @@
     "title": "Bug melden & Feedback geben",
     "subtitle": "Wähle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - alles Weitere ist optional. Jeder noch so kleine Hinweis hilft weiter."
   },
+  "hero": {
+    "title": "Hilfe zu <accent>DooDesch</accent>-Mods",
+    "subtitle": "Bug gefunden, Frage oder Idee? Am schnellsten geht es im Discord - oder du erstellst hier direkt ein Ticket.",
+    "discord": {
+      "title": "Discord beitreten",
+      "tag": "Schnellste Hilfe - echte Menschen",
+      "description": "Stell deine Frage im Support-Channel. Die Community und ich lesen mit und antworten meist noch am selben Tag.",
+      "cta": "Zum Discord"
+    },
+    "ticket": {
+      "title": "Ticket erstellen",
+      "badge": "Ohne Konto möglich",
+      "description": "Nur ein kurzer Titel ist Pflicht. Deine Meldung landet direkt als GitHub-Issue bei mir.",
+      "cta": "Zum Formular"
+    }
+  },
+  "home": {
+    "formTitle": "Ticket erstellen",
+    "formSubtitle": "Wähle ein Projekt und beschreibe, was dir aufgefallen ist. Pflicht ist nur ein kurzer Titel - jeder Hinweis hilft."
+  },
   "form": {
     "repoLabel": "Projekt / Repository",
     "repoPlaceholder": "Projekt auswählen ...",
