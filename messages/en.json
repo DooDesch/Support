@@ -42,6 +42,18 @@
     "message": "This page doesn't exist - or the project goes by a different name. The form on the home page lists every project.",
     "backHome": "Back to the home page"
   },
+  "imprint": {
+    "metaTitle": "Legal notice - DooDesch Support",
+    "title": "Legal notice",
+    "provider": "Information according to § 5 DDG (German Digital Services Act)",
+    "contact": "Contact",
+    "email": "Email",
+    "responsible": "Responsible for the content according to § 18(2) MStV (German Interstate Media Treaty)"
+  },
+  "privacy": {
+    "metaTitle": "Privacy policy - DooDesch Support",
+    "title": "Privacy policy"
+  },
   "form": {
     "repoLabel": "Project / Repository",
     "repoPlaceholder": "Select a project ...",
@@ -127,7 +139,11 @@
   },
   "footer": {
     "discordCta": "Need direct support?",
-    "discordLink": "Join our Discord"
+    "discordLink": "Join our Discord",
+    "legalNav": "Legal",
+    "kofi": "Ko-fi",
+    "imprint": "Legal notice",
+    "privacy": "Privacy"
   },
   "language": {
     "label": "Language",

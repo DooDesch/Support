@@ -42,6 +42,18 @@
     "message": "Diese Seite gibt es nicht - oder das Projekt heißt anders. Auf der Startseite findest du alle Projekte im Formular.",
     "backHome": "Zur Startseite"
   },
+  "imprint": {
+    "metaTitle": "Impressum - DooDesch Support",
+    "title": "Impressum",
+    "provider": "Angaben gemäß § 5 DDG",
+    "contact": "Kontakt",
+    "email": "E-Mail",
+    "responsible": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"
+  },
+  "privacy": {
+    "metaTitle": "Datenschutzerklärung - DooDesch Support",
+    "title": "Datenschutzerklärung"
+  },
   "form": {
     "repoLabel": "Projekt / Repository",
     "repoPlaceholder": "Projekt auswählen ...",
@@ -127,7 +139,11 @@
   },
   "footer": {
     "discordCta": "Du brauchst direkten Support?",
-    "discordLink": "Komm in unseren Discord"
+    "discordLink": "Komm in unseren Discord",
+    "legalNav": "Rechtliches",
+    "kofi": "Ko-fi",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
   },
   "language": {
     "label": "Sprache",
