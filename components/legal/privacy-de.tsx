@@ -157,7 +157,9 @@ export function PrivacyDe({
           Betriebssystem, Gerätetyp, Bildschirmgröße, Sprache und das aus der
           IP-Adresse abgeleitete Land. Dazu kommen Klicks auf die Knöpfe für
           Discord, Ticket und Absenden und das Anhängen einer Logdatei. Umami
-          speichert die IP-Adresse nicht.
+          speichert die IP-Adresse nicht. Umami läuft auf demselben Server wie
+          diese Website. Die Auswertungen bleiben gespeichert, bis ich sie
+          lösche.
         </p>
         <p>
           Zweck ist zu sehen, welche Seiten und Wege genutzt werden.

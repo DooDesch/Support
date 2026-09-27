@@ -152,7 +152,9 @@ export function PrivacyEn({
           previous page, browser, operating system, device type, screen size,
           language and the country derived from the IP address. It also
           records clicks on the Discord, ticket and submit buttons and the
-          attachment of a log file. Umami does not store the IP address.
+          attachment of a log file. Umami does not store the IP address. Umami
+          runs on the same server as this website. The statistics stay stored
+          until I delete them.
         </p>
         <p>
           The purpose is to see which pages and paths people use. The legal
