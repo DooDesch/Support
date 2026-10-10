@@ -4,11 +4,13 @@ import { getCachedRepos } from "./repos-cache";
 import type { PublicRepo } from "./github";
 
 // Repo naming convention in the DooDesch-Mods org: "{Game}-{ModName}".
-const GAME_PREFIXES = ["Palworld-", "ScheduleOne-", "Mimesis-", "Valheim-"];
+const GAME_PREFIXES = ["Palworld-", "ScheduleOne-", "Mimesis-", "Valheim-", "TheCabinGame-"];
 
 // Vanity slugs that don't derive from a repo name via prefix stripping.
 // Keys must be lowercase; values are the canonical derived slug.
-const SLUG_ALIASES: Record<string, string> = {};
+const SLUG_ALIASES: Record<string, string> = {
+  "thecabingame-vortex": "vortex",
+};
 
 // Path segments that must never be treated as product slugs.
 const RESERVED_SLUGS = new Set([
