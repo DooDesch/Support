@@ -38,8 +38,8 @@ type RawRepo = {
 
 // Lists the owner's public repos PLUS the public repos of each configured org
 // (e.g. DooDesch-Mods), sorted by "interaction" (stars + forks + open issues)
-// and, as a tiebreaker, most recently pushed. Archived repos and forks are
-// excluded as they are rarely the target of a support report.
+// and, as a tiebreaker, most recently pushed. Archived repos are excluded.
+// Forks are excluded except for the maintained MimicAPI fork.
 export async function listPublicRepos(): Promise<PublicRepo[]> {
   const octokit = getOctokit();
 
@@ -71,8 +71,13 @@ export async function listPublicRepos(): Promise<PublicRepo[]> {
   // De-duplicate by full name (defensive; user/org sets normally don't overlap).
   const byName = new Map<string, RawRepo>();
   for (const r of raw) {
-    // Skip private/fork/archived and the special ".github" org meta-repo.
-    if (r.private || r.fork || r.archived || r.name === ".github") continue;
+    // MimicAPI is a maintained product; other forks remain outside the catalog.
+    if (
+      r.private ||
+      (r.fork && r.full_name !== "DooDesch/MimicAPI") ||
+      r.archived ||
+      r.name === ".github"
+    ) continue;
     if (!byName.has(r.full_name)) byName.set(r.full_name, r);
   }
 
