@@ -21,10 +21,13 @@ export async function getKnownIssues(
       TTL_MS,
       async () => {
         const [owner, repo] = product.repo.fullName.split("/");
-        const results = await Promise.allSettled([
-          listOpenIssues(owner, repo, MAX_ISSUES),
-          listSupportIssuesByLabel(`repo:${product.repo.name}`, MAX_ISSUES),
-        ]);
+        const sources = [listSupportIssuesByLabel(`repo:${product.repo.name}`, MAX_ISSUES)];
+        if (!product.repo.pendingCatalog) {
+          sources.push(listOpenIssues(owner, repo, MAX_ISSUES));
+        } else {
+          console.info(`Private source issue lookup skipped for ${product.repo.fullName}; central Support reports only`);
+        }
+        const results = await Promise.allSettled(sources);
         const fulfilled = results.filter(
           (r): r is PromiseFulfilledResult<RepoIssue[]> =>
             r.status === "fulfilled",

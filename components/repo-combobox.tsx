@@ -26,8 +26,9 @@ interface RepoOption {
   fullName: string;
   description: string | null;
   url: string;
-  stars: number;
+  stars: number | null;
   language: string | null;
+  pendingCatalog?: boolean;
 }
 
 export function RepoCombobox({
@@ -35,7 +36,7 @@ export function RepoCombobox({
   onChange,
 }: {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: string, reportToSupport?: boolean) => void;
 }) {
   const t = useTranslations("form");
   const [open, setOpen] = React.useState(false);
@@ -132,7 +133,7 @@ export function RepoCombobox({
                       key={repo.fullName}
                       value={`${repo.fullName} ${repo.description ?? ""}`}
                       onSelect={() => {
-                        onChange(repo.fullName);
+                        onChange(repo.fullName, repo.pendingCatalog === true);
                         setOpen(false);
                       }}
                     >
@@ -150,7 +151,7 @@ export function RepoCombobox({
                           </span>
                         )}
                       </div>
-                      {repo.stars > 0 && (
+                      {repo.stars !== null && repo.stars > 0 && (
                         <span className="ml-2 flex shrink-0 items-center gap-0.5 text-xs text-muted-foreground">
                           <StarIcon className="size-3" />
                           {repo.stars}

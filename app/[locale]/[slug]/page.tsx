@@ -78,6 +78,7 @@ export default async function ProductPage({
         <ReportForm
           siteKey={serverConfig.turnstileSiteKey}
           initialRepo={product.repo.fullName}
+          initialReportToSupport={product.repo.pendingCatalog === true}
         />
       </section>
     </div>

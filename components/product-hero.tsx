@@ -17,7 +17,7 @@ export function ProductHero({ product }: { product: Product }) {
           {product.repo.description}
         </p>
       )}
-      <a
+      {!product.repo.pendingCatalog && <a
         href={product.repo.url}
         target="_blank"
         rel="noopener noreferrer"
@@ -25,7 +25,7 @@ export function ProductHero({ product }: { product: Product }) {
       >
         {t("repoLink")}
         <ArrowUpRightIcon className="size-3.5" />
-      </a>
+      </a>}
       <div className="mt-8">
         <PathCards compact />
       </div>

@@ -30,9 +30,11 @@ import { DEFAULTS, type FormValues } from "./types";
 export function ReportForm({
   siteKey,
   initialRepo,
+  initialReportToSupport = false,
 }: {
   siteKey: string;
   initialRepo?: string;
+  initialReportToSupport?: boolean;
 }) {
   const t = useTranslations("form");
   const tValidation = useTranslations("validation");
@@ -45,6 +47,7 @@ export function ReportForm({
   } = form;
 
   const [repo, setRepo] = React.useState(initialRepo ?? "");
+  const [reportToSupport, setReportToSupport] = React.useState(initialReportToSupport);
   const [severity, setSeverity] = React.useState<Severity | null>(null);
   const [activeFields, setActiveFields] = React.useState<DetailField[]>([]);
   const [log, setLog] = React.useState<AttachedLog | null>(null);
@@ -53,12 +56,14 @@ export function ReportForm({
   const submit = useReportSubmit({
     form,
     repo,
+    reportToSupport,
     severity,
     log,
     turnstileRef,
     onAfterSuccess: () => {
       reset(DEFAULTS);
       setRepo(initialRepo ?? "");
+      setReportToSupport(initialReportToSupport);
       setSeverity(null);
       setActiveFields([]);
       setLog(null);
@@ -98,7 +103,10 @@ export function ReportForm({
         <div className="space-y-1.5">
           <Label htmlFor="repo-combobox">{t("repoLabel")}</Label>
           <div id="repo-combobox">
-            <RepoCombobox value={repo} onChange={setRepo} />
+            <RepoCombobox value={repo} onChange={(value, centralOnly) => {
+              setRepo(value);
+              setReportToSupport(centralOnly === true);
+            }} />
           </div>
           {repo === NO_PROJECT && (
             <p className="text-xs text-muted-foreground">{t("repoNoneHint")}</p>

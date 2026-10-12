@@ -20,6 +20,7 @@ import {
 export function useReportSubmit({
   form,
   repo,
+  reportToSupport = false,
   severity,
   log,
   turnstileRef,
@@ -27,6 +28,7 @@ export function useReportSubmit({
 }: {
   form: UseFormReturn<FormValues>;
   repo: string;
+  reportToSupport?: boolean;
   severity: Severity | null;
   log: AttachedLog | null;
   turnstileRef: React.RefObject<TurnstileInstance | null>;
@@ -53,15 +55,13 @@ export function useReportSubmit({
   }, []);
 
   function buildGithubUrl(values: FormValues): string {
-    // When a repo is chosen, post into that repo (the reporter is the author);
-    // otherwise fall back to the central Support repo for triage.
-    const targetRepo = repo && repo !== NO_PROJECT ? repo : SUPPORT_REPO;
+    // Private products use the accessible central repo and keep their project reference.
+    const targetRepo = !reportToSupport && repo && repo !== NO_PROJECT ? repo : SUPPORT_REPO;
 
-    // Reuse the same markdown builder as the server, but omit the "reference"
-    // line (a self-reference to the target repo would be redundant).
+    // A reference is needed when the target differs from the product repo.
     const body = buildIssueBody({
       title: values.title,
-      repo: "",
+      repo: reportToSupport ? repo : "",
       description: values.description,
       steps: values.steps,
       expected: values.expected,

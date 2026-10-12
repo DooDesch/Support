@@ -16,8 +16,9 @@ export interface PublicRepo {
   fullName: string;
   description: string | null;
   url: string;
-  stars: number;
+  stars: number | null;
   language: string | null;
+  pendingCatalog?: boolean;
 }
 
 // Minimal shape we rely on from both the user-repos and org-repos endpoints.
