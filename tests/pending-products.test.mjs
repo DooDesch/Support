@@ -1,6 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { withPendingProducts } from "../lib/pending-products.ts";
+import { productIssuesUrl } from "../lib/product-issues-url.ts";
+
+test("pending product issue links use central Support and preserve the product filter", () => {
+  const repo = withPendingProducts([])[0];
+  const target = new URL(productIssuesUrl(repo));
+  assert.equal(target.origin + target.pathname, "https://github.com/DooDesch/Support/issues");
+  assert.equal(target.searchParams.get("q"), `is:issue is:open label:"repo:${repo.name}"`);
+  assert.equal(productIssuesUrl({...repo, pendingCatalog: false}), `${repo.url}/issues`);
+});
 
 test("only the seven declared Cabin products get metadata without private lookups", () => {
   const products = withPendingProducts([]);

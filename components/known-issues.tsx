@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowUpRightIcon } from "lucide-react";
 import type { RepoIssue } from "@/lib/github";
 import type { Product } from "@/lib/products";
+import { productIssuesUrl } from "@/lib/product-issues-url";
 
 // "How long ago" in the visitor's language, coarse on purpose.
 function relativeTime(iso: string, locale: string): string {
@@ -38,7 +39,7 @@ export function KnownIssues({
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
         <a
-          href={`${product.repo.url}/issues`}
+          href={productIssuesUrl(product.repo)}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline-offset-4 hover:underline"
