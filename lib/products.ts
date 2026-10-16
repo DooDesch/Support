@@ -10,6 +10,7 @@ const GAME_PREFIXES = ["Palworld-", "ScheduleOne-", "Mimesis-", "Valheim-", "The
 // Keys must be lowercase; values are the canonical derived slug.
 const SLUG_ALIASES: Record<string, string> = {
   "thecabingame-vortex": "vortex",
+  "modframework": "mmorpgtycoon2-modframework",
 };
 
 // Path segments that must never be treated as product slugs.
