@@ -1,4 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
+import {logDiagnosticFailure} from "./diagnostic-errors.ts";
 
 export function publicDiagnosticIssue(group: { fingerprint: string; build: string }) {
   if(!/^[0-9a-f]{24}$/.test(group.fingerprint)||!/^\d+\.\d+\.\d+(?:-[A-Za-z0-9.]+)?$/.test(group.build))
@@ -24,7 +25,7 @@ export async function syncDiagnosticIssues(db: DatabaseSync,
       const issue=await publish(publicDiagnosticIssue({fingerprint:signature,build}));
       db.prepare("UPDATE issue_queue SET issue_url=?,state='sent' WHERE fingerprint=?").run(issue.url,signature);
     }catch(error){
-      console.error("Diagnostic issue creation unconfirmed; awaiting reconciliation",error instanceof Error?error.name:"unknown");
+      logDiagnosticFailure("publish issue group "+signature+"; awaiting reconciliation",error,true);
     }
   }
 }

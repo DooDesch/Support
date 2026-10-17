@@ -7,6 +7,7 @@ import { randomUUID } from "node:crypto";
 import { sanitizeDiagnostic } from "../lib/diagnostic-schema.ts";
 import { adminAuthorized, openDiagnosticStore, persistDiagnostic, fingerprint } from "../lib/diagnostic-store.ts";
 import { publicDiagnosticIssue, syncDiagnosticIssues } from "../lib/diagnostic-issues.ts";
+import {diagnosticFailureRecord} from "../lib/diagnostic-errors.ts";
 
 const directory=mkdtempSync(join(tmpdir(),"mt2-report-tests-"));
 process.env.DIAGNOSTICS_DIRECTORY=directory;
@@ -23,6 +24,10 @@ test("redaction removes account, path, address and secrets on the server",()=>{
   const value=sample(); value.events[0].cause="token=secret123 peer=76561198000000000 ip=192.168.1.3 path=C:\\Users\\Alice\\file";
   const safe=sanitizeDiagnostic(value);
   for(const secret of ["secret123","76561198000000000","192.168.1.3","Alice"])assert.equal(JSON.stringify(safe).includes(secret),false);
+  value.events[0].cause="Authorization: Bearer header-secret";
+  assert.equal(JSON.stringify(sanitizeDiagnostic(value)).includes("header-secret"),false);
+  value.events[0].cause="peer76561198000000000 lobby=109775242337075890";
+  for(const secret of ["76561198000000000","109775242337075890"])assert.equal(JSON.stringify(sanitizeDiagnostic(value)).includes(secret),false);
 });
 test("confirmed durable write survives reopening and retry does not duplicate",()=>{
   const value=sanitizeDiagnostic(sample());let db=openDiagnosticStore();
@@ -52,6 +57,12 @@ test("missing private storage fails closed",()=>{
 test("public issue summary cannot include report text or diagnostic data",()=>{
   const issue=publicDiagnosticIssue({fingerprint:"a".repeat(24),build:"0.1.0-beta.13",comment:"PRIVATE",events:["SECRET"]});
   assert.equal(JSON.stringify(issue).includes("PRIVATE"),false);assert.equal(JSON.stringify(issue).includes("SECRET"),false);
+});
+test("upstream errors retain their cause and status without credentials",()=>{
+  const fault=Object.assign(new Error("database locked Authorization: Bearer header-secret"),{code:"SQLITE_BUSY",status:503});
+  const record=diagnosticFailureRecord("persist report",fault);
+  assert.equal(record.code,"SQLITE_BUSY");assert.equal(record.status,503);
+  assert.match(record.cause,/database locked/);assert.equal(JSON.stringify(record).includes("header-secret"),false);
 });
 test("uncertain issue publication is reconciled without duplicate creation",async()=>{
   const db=openDiagnosticStore();db.exec("DELETE FROM issue_queue");

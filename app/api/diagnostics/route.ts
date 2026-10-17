@@ -1,6 +1,7 @@
 import { MAX_DIAGNOSTIC_BYTES, sanitizeDiagnostic } from "../../../lib/diagnostic-schema";
 import { DiagnosticError, openDiagnosticStore, persistDiagnostic } from "../../../lib/diagnostic-store";
 import { createHash } from "node:crypto";
+import {logDiagnosticFailure} from "../../../lib/diagnostic-errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -46,7 +47,7 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof DiagnosticError)
       return Response.json({ ok: false, error: error.code }, { status: error.status, headers });
-    console.error("Private diagnostic persistence failed", error instanceof Error ? error.name : "unknown");
+    logDiagnosticFailure("persist diagnostic report",error);
     return Response.json({ ok: false, error: "storage_failed" }, { status: 503, headers });
   }
 }

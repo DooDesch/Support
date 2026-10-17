@@ -43,10 +43,10 @@ export function redactDiagnosticText(text: string): string {
   return text
     .replace(/\b[A-Za-z]:[\\/][^\r\n"<>|]*/g, "[path]")
     .replace(/\/(?:home|Users)\/[^\s"']+/g, "[path]")
-    .replace(/\b\d{17}\b/g, "[account]")
+    .replace(/\d{17,}/g, "[account]")
     .replace(/\b(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?\b/g, "[address]")
-    .replace(/\b(token|password|authorization|cookie|secret|session_token)\s*[:=]\s*(?:"[^"]*"|'[^']*'|\S+)/gi, "$1=[redacted]")
     .replace(/\bBearer\s+\S+/gi, "Bearer [redacted]")
+    .replace(/\b(token|password|authorization|cookie|secret|session_token)\s*[:=]\s*(?:"[^"]*"|'[^']*'|\S+)/gi, "$1=[redacted]")
     .replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, "[email]");
 }
 
