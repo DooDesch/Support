@@ -1,0 +1,23 @@
+name: Private diagnostics contract
+on:
+  push:
+    paths: ["lib/diagnostic-*", "app/api/diagnostics/**", "tests/diagnostics.test.mjs", "tools/diagnostics*", "api/diagnostics/**", "package*.json", ".github/workflows/diagnostics.yml"]
+  pull_request:
+    paths: ["lib/diagnostic-*", "app/api/diagnostics/**", "tests/diagnostics.test.mjs", "tools/diagnostics*", "api/diagnostics/**", "package*.json", ".github/workflows/diagnostics.yml"]
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node --experimental-strip-types --test tests/diagnostics.test.mjs
+      - run: node --experimental-strip-types tools/diagnostics-schema.mjs --check
+      - run: node tools/diagnostics.mjs --help

@@ -11,6 +11,10 @@ Credentials, account numbers, addresses and user paths are filtered again on the
 server. Installed mod metadata means manifests found in the profile; it does not
 assert that every installed mod is active.
 
+The machine-readable contract is generated at `api/diagnostics/1.json`.
+Run `node --experimental-strip-types tools/diagnostics-schema.mjs` after schema changes.
+CI checks that this generated file matches the server validator.
+
 ## Deploy
 
 1. Mount a dedicated named volume at `/var/lib/mt2-diagnostics` on the existing
@@ -35,6 +39,17 @@ It lists failure groups, affected builds, sampled sessions and issue outbox stat
 Use `?id=<report UUID>` to inspect one private report, or
 `?session=<diagnostic session UUID>` to correlate Host and guest reports.
 The API sends no-store responses. A report number alone does not grant access.
+
+With the private admin key in `MT2_DIAGNOSTICS_TOKEN`, use:
+
+```sh
+node tools/diagnostics.mjs groups
+node tools/diagnostics.mjs report <report-UUID>
+node tools/diagnostics.mjs session <session-UUID>
+```
+
+These commands emit structured private JSON for maintainers and agents. The token
+is never a command-line argument or URL parameter. Keep report output private.
 
 Reports expire after30 days. Startup and a minute-based maintenance task prune
 expired rows. Abuse counters retain only a keyed IP hash for at most two hourly
