@@ -55,6 +55,32 @@ export function PrivacyDe({
         </p>
       </LegalSection>
 
+      <LegalSection title="Private Diagnoseberichte aus dem Spiel">
+        <p>
+          MMORPG Tycoon 2 Multiplayer kann lokal einen technischen Bericht vorbereiten.
+          Er wird erst übertragen, wenn du Send report wählst oder automatische technische
+          Berichte in der Mod aktivierst. Diese lassen sich jederzeit wieder ausschalten.
+          Enthalten sind Build-Versionen und Prüfsummen, Kennungen und Versionen installierter
+          Mods, technische Fehler, Aktionsbestätigungen und zusammengefasste Laufzeiten.
+          Zufällige Diagnosekennungen verbinden Berichte derselben Multiplayer-Sitzung.
+          Eine optionale Beschreibung bleibt privat.
+        </p>
+        <p>
+          Reguläre Berichte enthalten keine Spielstände, Chats, Screenshots oder Steam-Konto-IDs.
+          Kontonummern, Benutzerpfade, Adressen und übliche Zugangsdatenfelder werden vor der
+          Übertragung und erneut auf dem Server gefiltert. Bitte schreibe keine persönlichen
+          Informationen in die optionale Beschreibung.
+        </p>
+        <p>
+          Berichte werden bis zu 30 Tage privat gespeichert und sind nur für berechtigte
+          Betreuer zugänglich. Ein öffentliches GitHub-Issue kann die Produktversion und eine
+          Fehlersignatur enthalten, jedoch keine Beschreibung, Logs oder Anhänge des Berichts.
+          Für den Missbrauchsschutz bleibt ein mit einem geheimen Schlüssel berechneter Hash
+          der Verbindungs-IP höchstens zwei Stunden gespeichert. Der Bericht enthält keine IP-Adresse.
+          Bewahre die Berichtsnummer auf, wenn du über den obigen Kontakt eine Löschung anfordern möchtest.
+        </p>
+      </LegalSection>
+
       <LegalSection title="3. Ticket ohne Konto (Formular)">
         <p>
           Mit dem Formular kannst du ohne GitHub-Konto eine Meldung senden.

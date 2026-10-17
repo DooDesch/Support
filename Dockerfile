@@ -26,7 +26,10 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs \
-  && adduser --system --uid 1001 nextjs
+  && adduser --system --uid 1001 nextjs \
+  && mkdir -p /var/lib/mt2-diagnostics \
+  && chown nextjs:nodejs /var/lib/mt2-diagnostics \
+  && chmod 700 /var/lib/mt2-diagnostics
 
 COPY --from=builder /app/public ./public
 # Standalone output traces only the files needed to run the server.
@@ -34,6 +37,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
+ENV DIAGNOSTICS_DIRECTORY=/var/lib/mt2-diagnostics
+ENV DIAGNOSTICS_PUBLIC_ISSUES=true
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"

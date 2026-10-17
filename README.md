@@ -15,6 +15,10 @@ Next.js 16 (App Router) - React 19 - TypeScript 6 - next-intl 4 - Tailwind CSS 4
 
 ## How it works
 
+Multiplayer's private in-game reporting uses a separate ingestion endpoint and
+private durable storage. See [Private diagnostics](docs/private-diagnostics.md)
+for deployment, the upload contract and maintainer access.
+
 - `GET /api/repos` - lists the owner's public repos, sorted by interaction
   (stars + forks + open issues), then most recently pushed. Cached in memory.
 - `POST /api/report` - validates input (zod), runs spam checks

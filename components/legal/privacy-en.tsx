@@ -16,7 +16,7 @@ export function PrivacyEn({
 }) {
   return (
     <>
-      <p>Last updated: 27 September 2026</p>
+      <p>Last updated: 17 October 2026</p>
 
       <LegalSection title="1. Controller">
         <p>The controller for data processing on this website is:</p>
@@ -52,6 +52,32 @@ export function PrivacyEn({
           {facts.logRetentionDays !== null
             ? `Log entries are deleted after ${facts.logRetentionDays} days.`
             : "Log entries are deleted when they are no longer necessary for these purposes."}
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Private in-game diagnostics">
+        <p>
+          MMORPG Tycoon 2 Multiplayer can prepare a technical report locally.
+          It is uploaded only when you choose Send report, or enable automatic
+          technical reports in the mod. You can turn automatic reports off at any time.
+          Reports contain build versions and hashes, installed mod identifiers and
+          versions, recent technical errors, action acknowledgements and performance
+          summaries. Random diagnostic identifiers connect reports from the same
+          multiplayer session. An optional description remains private.
+        </p>
+        <p>
+          Regular reports do not include saves, chat, screenshots or Steam account
+          IDs. Account numbers, user paths, addresses and common credential fields
+          are filtered before upload and again on the server. Please keep personal
+          information out of the optional description.
+        </p>
+        <p>
+          Reports are stored privately for up to 30 days and are accessible only to
+          authorized maintainers. A public GitHub issue can contain the product
+          version and a failure signature, but no report description, logs or attachments.
+          A keyed hash of the connection IP is retained for no more than two hours
+          to limit abuse. The report itself does not contain the IP address.
+          Keep your report number if you want to ask for deletion through the contact above.
         </p>
       </LegalSection>
 
