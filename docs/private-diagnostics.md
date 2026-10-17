@@ -1,12 +1,12 @@
 # Private Multiplayer diagnostics
 
-The in-game reporter sends schema1 JSON to `POST /api/diagnostics` over HTTPS.
+The in-game reporter sends schema 1 JSON to `POST /api/diagnostics` over HTTPS.
 It does not use the public `/api/report` form. A receipt is returned only after
 the SQLite transaction commits with synchronous FULL. The receipt includes the
 report ID, storage timestamp, stored digest and SHA256 of the exact upload bytes.
 
 The schema in `lib/diagnostic-schema.ts` is the ingestion contract. Unknown fields,
-unconsented bundles, more than256 events and requests over256KiB are rejected.
+unconsented bundles, more than 256 events and requests over 256 KiB are rejected.
 Credentials, account numbers, addresses and user paths are filtered again on the
 server. Installed mod metadata means manifests found in the profile; it does not
 assert that every installed mod is active.
@@ -19,15 +19,15 @@ CI checks that this generated file matches the server validator.
 
 1. Mount a dedicated named volume at `/var/lib/mt2-diagnostics` on the existing
    Support application. Keep one replica. The image initializes this directory
-   for the unprivileged application user with mode700.
+   for the unprivileged application user with mode 700.
 2. The image sets `DIAGNOSTICS_DIRECTORY=/var/lib/mt2-diagnostics`. Data must not be placed
    under `public`. There is no temporary-storage fallback.
 3. The image sets `DIAGNOSTICS_PUBLIC_ISSUES=true` for the anonymized issue outbox.
    The existing server-only GitHub integration creates those issues.
 4. Deploy the checked Support source. Keep the existing environment values.
 
-On the first start, a random32-byte admin key is written to `admin-token` on the
-private volume with mode600. An optional `DIAGNOSTICS_ADMIN_TOKEN` of at least43
+On the first start, a random 32-byte admin key is written to `admin-token` on the
+private volume with mode 600. An optional `DIAGNOSTICS_ADMIN_TOKEN` of at least 43
 characters overrides it. Never place this key in a mod, browser URL or public log.
 Maintainers with existing server access can read it inside the container and set
 it in a local environment for the management CLI. There is no public report reader.
@@ -51,10 +51,10 @@ node tools/diagnostics.mjs session <session-UUID>
 These commands emit structured private JSON for maintainers and agents. The token
 is never a command-line argument or URL parameter. Keep report output private.
 
-Reports expire after30 days. Startup and a minute-based maintenance task prune
+Reports expire after 30 days. Startup and a minute-based maintenance task prune
 expired rows. Abuse counters retain only a keyed IP hash for at most two hourly
 buckets; report bodies contain no IP. The ingress proxy must replace X-Real-IP.
-The store permits20 new reports per IP per hour and10000 retained reports.
+The store permits 20 new reports per IP per hour and 10000 retained reports.
 An identical retry does not consume another report or quota entry.
 
 Each error signature queues at most one public issue. The issue contains only a
